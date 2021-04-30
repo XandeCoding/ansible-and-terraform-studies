@@ -24,7 +24,6 @@
         resource_group: "{{ resource_group }}"
         name: "{{ subnet_network }}"
         address_prefixes: "10.0.1.0/24"
-        state: present
         virtual_network: "{{ virtual_network }}"
 
     - name: Create public IP address
@@ -76,7 +75,7 @@
         security_group: "{{ security_group }}"
         state: present
 
-    - name: Create virutal machine
+    - name: Create virtual machine
       azure_rm_virtualmachine:
         name: "{{ virtual_machine_01 }}"
         resource_group: "{{ resource_group }}"
