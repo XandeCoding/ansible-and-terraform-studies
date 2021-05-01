@@ -1,0 +1,76 @@
+---
+- hosts: localhost
+  connection: local
+  vars_files:
+    - vars.yaml
+    - credentials.yaml
+
+  tasks:
+    - name: Creating resource group
+      azure_rm_resourcegroup:
+        name: "{{ resource_group }}"
+        location: "{{ location }}"
+        state: present
+      register: creating_resource_group
+
+    - name: Create virtual network
+      azure_rm_virtualnetwork:
+        resource_group: "{{ resource_group }}"
+        name: "{{ virtual_network }}"
+        address_prefixes: "10.1.0.0/16"
+        state: present
+
+    - name: Create subnet
+      azure_rm_subnet:
+        resource_group: "{{ resource_group }}"
+        name: "{{ subnet_network }}"
+        address_prefix_cidr: "10.1.0.0/24"
+        virtual_network: "{{ virtual_network }}"
+        state: present
+
+    - name: Create public IP address
+      azure_rm_publicipaddress:
+        resource_group: "{{ resource_group }}"
+        allocation_method: Static
+        name: "{{ public_ip }}"
+        state: present
+
+    - name: Create network security group that allows SSH
+      azure_rm_securitygroup:
+        resource_group: "{{ resource_group }}"
+        name: "{{ security_group }}"
+        state: present
+        rules:
+          - name: SSH
+            access: Allow
+            protocol: Tcp
+            destination_port_range: 22
+            priority: 120
+            direction: Inbound
+
+    - name: Create virtual network interface card
+      azure_rm_networkinterface:
+        name: "{{ network_interface }}"
+        resource_group: "{{ resource_group }}"
+        virtual_network: "{{ virtual_network }}"
+        subnet: "{{ subnet_network }}"
+        security_group: "{{ security_group }}"
+        ip_configurations:
+          - name: "{{ network_interface_name_01 }}"
+            public_ip_address_name: "{{ public_ip_01 }}"
+            primary: True
+        state: present
+
+    - name: Create virtual machine
+      azure_rm_virtualmachine:
+        name: "{{ virtual_machine_01 }}"
+        resource_group: "{{ resource_group }}"
+        vm_size: "{{ virtual_machine_size }}"
+        admin_username: "{{ admin_username }}"
+        admin_password: "{{ admin_password }}"
+        network_interfaces: "{{ network_interface }}"
+        image:
+          offer: debian-10
+          publisher: Debian
+          sku: 10
+          version: latest
