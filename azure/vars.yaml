@@ -1,13 +1,12 @@
 ---
-resource_group: server_brazil
-location: brazilsouth
-virtual_network: virtual_network_server_brazil
-subnet_network: subnet_server_brazil
-public_ip: 'public_ip_server_brazil'
-security_group: 'security_group_server_brazil'
-network_interface: 'network_interface_server_brazil'
-virtual_machine_01: 'virtual_machine_01_server_brazil'
+resource_group: server
+location: eastus2
+virtual_network: virtual_network_server
+subnet_network: subnet_server
+public_ip: 'public_ip_server'
+security_group: 'security_group_server'
+network_interface: 'network_interface_server'
+network_interface_name_01: 'ip_config_01'
+public_ip_01: 'public_ip_01'
+virtual_machine_01: 'node01'
 virtual_machine_size: 'Standard_DS1_v2'
-# TODO: COLOCAR ISSO EM OUTRO ARQUIVO QUE NÃO VAI NO COMMIT
-admin_username: 'alexandre'
-admin_password: 'chuwbaka*1230'
