@@ -110,7 +110,7 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
   location              = var.location
   resource_group_name   = azurerm_resource_group.resource_group.name
   network_interface_ids = [azurerm_network_interface.network_interface.id]
-  size                  = "Standard_DS1_v2"
+  size                  = "Standard_B1ls"
 
   os_disk {
     name                 = var.os_disk_name
@@ -120,8 +120,8 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
 
   source_image_reference {
     publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
+    offer     = "0001-com-ubuntu-server-focal"
+    sku       = "20_04-lts-gen2"
     version   = "latest"
   }
 
