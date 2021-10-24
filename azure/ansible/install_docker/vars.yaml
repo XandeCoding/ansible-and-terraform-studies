@@ -1,4 +1,4 @@
 ---
 # Docker urls
-dst_docker_script: /tmp/install_docker.sh
-url_docker_script: https://get.docker.com
+url_docker_gpg_key: https://download.docker.com/linux/ubuntu/gpg
+url_docker_repository: https://download.docker.com/linux/ubuntu

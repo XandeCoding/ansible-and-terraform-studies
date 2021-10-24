@@ -1,0 +1,30 @@
+---
+- hosts: azure
+  become: true
+  vars_files:
+    - vars.yaml
+
+  tasks:
+    - name: Instalar o Aptitude
+      apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+
+    - name: Instalando pacotes obrigatorios
+      apt: name={{ item }} state=latest update_cache=yes
+      loop: [
+        'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common',
+        'python3-pip', 'virtualenv', 'python3-setuptools'
+      ]
+
+    - name: Adicionar Chave apt GPG do Docker
+      apt_key:
+        url: "{{ url_docker_gpg_key }}"
+        state: present
+
+    - name: Adicionar repositorio do Docker
+      apt_repository:
+        repo: "deb [arch=amd64] {{ url_docker_repository }} {{ ansible_lsb.codename }} stable"
+        state: present
+
+    - name: Instalando o Docker
+      apt: update_cache=yes name=docker-ce state=latest
+      notify: Restart Docker
