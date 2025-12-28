@@ -1,0 +1,20 @@
+[project]
+name = "automation"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "XandeCoding",email = "af.santos1998@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ansible (>=13.1.0,<14.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "automation", from = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
