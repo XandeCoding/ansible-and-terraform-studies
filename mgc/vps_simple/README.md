@@ -1,5 +1,7 @@
 # Subindo Docker Compose na MGC
 
+![tela mgc com vps criada, 1GB de ram e 1CPU](./images/mgc_vps.png)
+
 Estes scripts tem a responsabilidade de subir uma máquina virtual na MGC (Magalu Cloud) e realizar a instalação do docker compose.
 
 Sobre a criação da máquia alguns parâmetros como a região ou o tipo da máquina podem ser alterados sem nenhum prejuízo,
